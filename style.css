@@ -9,5 +9,10 @@ body {
 }
 
 .reportview-container .main .block-container {
-    max-width: 100%
+    max-width: 95%;
+    padding-top: 0em;
+}
+
+.stTitle>title {
+    color: black;
 }

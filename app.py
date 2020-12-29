@@ -28,13 +28,19 @@ st.title('Hourly Day Ahead Forecast')
 
 file = st.file_uploader("Choose an excel file", type="xlsx")
 
-if st.button('Upload Data'):
+
+@st.cache
+def load_data():
     df = pd.read_excel(file, sheet_name="Data")
-    plt_series = px.line(df, x='DateTime', y='Actual',
+    return df
+
+
+if st.button('Upload Data'):
+    dt = load_data()
+    plt_series = px.line(dt, x='DateTime', y='Actual',
                          labels={
                              "Actual": "Actual Hourly Load (MW)",
                              "DateTime": "Date Time"
                          },
-                         width=1000, height=500,
                          title="Hourly Actual Load")
-    st.plotly_chart(plt_series)
+    st.plotly_chart(plt_series, use_container_width=True)
